@@ -65,7 +65,6 @@ module.exports = function(grunt) {
       },
       options: {
         forceExit: true,
-        failTask: true,
         match: '.',
         matchall: false,
         extensions: 'js',
