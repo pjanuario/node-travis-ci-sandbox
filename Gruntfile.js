@@ -56,21 +56,20 @@ module.exports = function(grunt) {
 
     jasmine_node: {
       coverage: {
-
+        options : {
+          failTask: true,
+          branches : 100 ,
+          functions: 100,
+          statements:100,
+          lines:100
+        }
       },
       options: {
         forceExit: true,
         match: '.',
         matchall: false,
         extensions: 'js',
-        specNameMatcher: '_spec',
-        captureExceptions: true,
-        junitreport: {
-          report: false,
-          savePath : "./build/reports/jasmine/",
-          useDotNotation: true,
-          consolidate: true
-        }
+        specNameMatcher: '_spec'
       },
       unit: ['spec/unit/'],
       integration: ['spec/integration/']
@@ -83,7 +82,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-jasmine-node-coverage');
+  grunt.loadNpmTasks('grunt-jasmine-node-coverage-validation');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-env');
