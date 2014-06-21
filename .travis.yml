@@ -10,5 +10,9 @@ branches:
   only:
     - master
 script:
-  - "npm test"
-  - "CODECLIMATE_REPO_TOKEN=aba47687fdf0cb0d8d123e5028c1ebe8a34d526e6d88a28db7f94cc9b4bcafe2 codeclimate < ./coverage/lcov.info"
+  - npm test
+  - codeclimate < ./coverage/lcov.info
+addons:
+  code_climate:
+    repo_token:
+      secure: O2iNJEui8EwF72dfdbQzlnNuA6xlcce9nhoDh0kmK9c6IbSgraPmoM//doT2Fj6Os2Ct4zbiY+XSE0uJvFjofLhLHPXW8AhFWIV2f0WQXMkvjLNAQBiHNA24NYWPKO+E9os9boOkGEW5911uQQUj1Agj569PpEnDXxbtgt5EwVs=
