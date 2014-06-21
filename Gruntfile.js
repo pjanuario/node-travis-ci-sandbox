@@ -86,6 +86,56 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-env');
 
+  var instrumentationFilePath = 'instrumentation_spec.js';
+  var fs = require('fs');
+  var fsTools = require('fs-tools');
+
+  grunt.registerTask('rm-instrumentation-file', function() {
+    grunt.log.writeln('deleting %s ...', instrumentationFilePath);
+    // remove file if exists
+    fs.unlinkSync(instrumentationFilePath);
+    grunt.log.writeln('delete %s', instrumentationFilePath);
+  });
+
+  grunt.registerTask('gen-instrumentation-file', function() {
+    if(fs.exists(instrumentationFilePath)){
+      // remove file if exists
+      fs.unlinkSync(instrumentationFilePath);
+    }
+
+    // use {'flags': 'a'} to append and {'flags': 'w'} to erase and write a new file
+    var file = fs.createWriteStream(instrumentationFilePath, {'flags': 'a'});
+    grunt.log.writeln('generating instrumentation file: %s', instrumentationFilePath);
+
+    var srcPath = './';
+    grunt.log.writeln("Source Path to walk: %s", srcPath);
+
+    var specMatcher = grunt.config.data.jasmine_node.options.specNameMatcher;
+
+    var filecheck = function(path){
+      var isModule = path.indexOf('node_modules') === 0;
+      var isCoverage = path.indexOf('coverage') === 0;
+      var isGruntfile = path === 'Gruntfile.js';
+      var isSpec = path.indexOf(specMatcher) !== -1;
+
+      if(isModule || isCoverage || isGruntfile || isSpec) {
+        return;
+      }
+
+      grunt.log.writeln("require file ./%s", path);
+
+      file.write('require("./' + path + '");\n');
+    };
+
+    fsTools.walkSync(srcPath, '.js$', function(path,stats,callback){
+      filecheck(path);
+    });
+
+    grunt.log.ok('generated %s', instrumentationFilePath);
+  });
+
   grunt.registerTask('default', 'watch');
-  grunt.registerTask('test', ['jshint', 'env:test', 'jasmine_node']);
+  grunt.registerTask('run-tests', ['env:test','jasmine_node']);
+  grunt.registerTask('test', ['jshint', 'gen-instrumentation-file', 'run-tests', 'rm-instrumentation-file']);
+
 };
