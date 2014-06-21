@@ -59,8 +59,8 @@ module.exports = function(grunt) {
           failTask: true,
           branches : 100 ,
           functions: 100,
-          statements:100,
-          lines:100
+          statements: 100,
+          lines: 100
         }
       },
       options: {

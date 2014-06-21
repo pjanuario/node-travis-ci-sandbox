@@ -7,10 +7,10 @@ describe("My module", function() {
     expect(instance.myMethod()).toEqual("Hello world");
   });
 
-  // it("answers to myMethod() correctly with flag", function() {
-  //   var instance = new MyModule();
-  //   expect(instance.myMethod(true)).toBeNull();
-  // });
+  it("answers to myMethod() correctly with flag", function() {
+    var instance = new MyModule();
+    expect(instance.myMethod(true)).toBeNull();
+  });
 
   it("logs to console", function() {
     var instance = new MyModule();
