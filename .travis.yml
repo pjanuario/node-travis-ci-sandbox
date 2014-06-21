@@ -11,3 +11,4 @@ branches:
     - master
 script:
   - "npm test"
+  - "CODECLIMATE_REPO_TOKEN=aba47687fdf0cb0d8d123e5028c1ebe8a34d526e6d88a28db7f94cc9b4bcafe2 codeclimate < ./coverage/lcov.info"
