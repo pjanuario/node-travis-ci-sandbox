@@ -2,7 +2,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-
     watch: {
       files: '<%= jshint.files %>',
       tasks: ['jshint']
@@ -66,6 +65,7 @@ module.exports = function(grunt) {
       },
       options: {
         forceExit: true,
+        failTask: true,
         match: '.',
         matchall: false,
         extensions: 'js',
