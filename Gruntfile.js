@@ -86,7 +86,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-env');
 
-  var instrumentationFilePath = 'instrumentation_spec.js';
+  var instrumentationFilePath = './instrumentation_spec.js';
   var fs = require('fs');
   var fsTools = require('fs-tools');
 
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('gen-instrumentation-file', function() {
-    if(fs.exists(instrumentationFilePath)){
+    if(fs.existsSync(instrumentationFilePath)){
       // remove file if exists
       fs.unlinkSync(instrumentationFilePath);
     }
