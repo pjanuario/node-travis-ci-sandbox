@@ -11,6 +11,7 @@ branches:
     - master
 script:
   - npm test
+after_success:
   - codeclimate < ./coverage/lcov.info
 addons:
   code_climate:
